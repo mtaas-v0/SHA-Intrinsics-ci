@@ -25,8 +25,24 @@ jobs:
     - name: Build with cl.exe
       run: |
         cl.exe /EHsc sha256-x86.c /fe:sha256-x86.exe /DTEST_MAIN
-
+        cl /LD sha256-x86.c
+    - name: Build with cl.exe
+      run: |
+        cl.exe /EHsc sha512.c  /OUT:sha512.exe /DTEST_MAIN
+        cl /LD sha512.c
+    - name: Build with cl.exe
+      run: |
+        cl.exe /EHsc sha1-x86.c  /OUT:sha1-x86.exe /DTEST_MAIN
+        cl /LD sha1-x86.cpp
     # 4. (Optional) Run your generated binary
     - name: Run Executable
       run: |
         .\sha256-x86.exe
+        .\sha1-x86.exe
+        .\sha512.exe
+
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v7.0.1
+      with:
+        # Artifact name. If the `archive` input is `false`, the name of the file uploaded will be the artifact name.
+        path: *.(exe|dll)
