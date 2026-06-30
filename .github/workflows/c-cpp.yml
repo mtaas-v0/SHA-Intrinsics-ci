@@ -33,11 +33,11 @@ jobs:
     - name: Build with cl.exe
       run: |
         cl.exe /EHsc sha1-x86.c  /OUT:sha1-x86.exe /DTEST_MAIN
-        cl /LD sha1-x86.cpp
+        cl /LD sha1-x86.c
     - name: Build with cl.exe
       run: |
         cl.exe /EHsc cpuid.c  /OUT:cpuid_sha_ni.exe /DTEST_MAIN
-        cl /LD cpuid.cpp /OUT:cpuid_sha_ni.dll
+        cl /LD cpuid.c /OUT:cpuid_sha_ni.dll
     # 4. (Optional) Run your generated binary
     - name: Run Executable
       run: |
