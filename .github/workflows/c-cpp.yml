@@ -1,0 +1,32 @@
+name: Windows MSVC CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # 1. Fetch your code from GitHub
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. Configure environment variables for cl.exe
+    - name: Configure Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    # 3. Compile your application using cl
+    - name: Build with cl.exe
+      run: |
+        cl.exe /EHsc sha256-x86.c /fe:sha256-x86.exe /DTEST_MAIN
+
+    # 4. (Optional) Run your generated binary
+    - name: Run Executable
+      run: |
+        .\sha256-x86.exe
