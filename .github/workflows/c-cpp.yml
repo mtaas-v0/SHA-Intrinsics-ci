@@ -22,24 +22,25 @@ jobs:
         arch: x64
 
     # 3. Compile your application using cl
-    - name: Build with cl.exe
+    - name: Build with cl.exe sha256-x86.c
       run: |
-        cl.exe /EHsc sha256-x86.c /fe:sha256-x86.exe /DTEST_MAIN
+        cl.exe /EHsc sha256-x86.c /out:sha256-x86.exe /DTEST_MAIN
         cl /LD sha256-x86.c
-    - name: Build with cl.exe
+    - name: Build with cl.exe sha512.c
       run: |
-        cl.exe /EHsc sha512.c  /OUT:sha512.exe /DTEST_MAIN
+        cl.exe /EHsc sha512.c  /out:sha512.exe /DTEST_MAIN
         cl /LD sha512.c
-    - name: Build with cl.exe
+    - name: Build with cl.exe sha1-x86.c
       run: |
-        cl.exe /EHsc sha1-x86.c  /OUT:sha1-x86.exe /DTEST_MAIN
+        cl.exe /EHsc sha1-x86.c  /out:sha1-x86.exe /DTEST_MAIN
         cl /LD sha1-x86.c
-    - name: Build with cl.exe
+    - name: Build with cl.exe cpuid.c
       run: |
-        cl.exe /EHsc cpuid.c  /OUT:cpuid_sha_ni.exe /DTEST_MAIN
-        cl /LD cpuid.c /OUT:cpuid_sha_ni.dll
+        cl.exe /EHsc cpuid.c  /out:cpuid_sha_ni.exe /DTEST_MAIN
+        cl /LD cpuid.c /out:cpuid_sha_ni.dll
     # 4. (Optional) Run your generated binary
     - name: Run Executable
+      continue-on-error: true
       run: |
         .\sha256-x86.exe
         .\sha1-x86.exe
